@@ -3,20 +3,28 @@ import { NavigationContainer, createNativeStackNavigator } from '@react-navigati
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text } from 'react-native';
 
-import { Screen1 } from './screens/Screen1.js'
+import { ScreenInscription } from './screens/Inscription.js';
+import { ScreenConnexion } from './screens/Connexion.js';
+import { ScreenUser } from './screens/User.js';
+import { ScreenHome } from './screens/Home.js';
 
-console.log(createStackNavigator)
+console.log(createStackNavigator);
 const Stack = createStackNavigator(); // Stack contains Screen & Navigator properties
 
 export default function App() {
   return (
+    
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Screen1} />
-        <Stack.Screen name="Profile" component={Screen1} />
+
+      <Stack.Navigator initialRouteName='Home' >
+
+      <Stack.Screen name="Inscription" component={ScreenInscription} />
+      <Stack.Screen name="Home" component={ScreenHome} />
+      <Stack.Screen name="Connexion" component={ScreenConnexion} />
+      <Stack.Screen name="User" component={ScreenUser} />
       </Stack.Navigator>
       <Text>Test text</Text>
-      <Screen1></Screen1>
     </NavigationContainer>
   );
 }
+
