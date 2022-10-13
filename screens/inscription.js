@@ -1,5 +1,6 @@
 import { StyleSheet,Text, View,TextInput, Button } from 'react-native';
 import { Link } from '@react-navigation/native';
+import React,{ useState } from 'react';
 export function ScreenInscription (props) {
     return (
         <View style={styles.container}>
