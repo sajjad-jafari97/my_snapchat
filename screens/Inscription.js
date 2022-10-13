@@ -1,18 +1,60 @@
 import { StyleSheet,Text, View,TextInput, Button } from 'react-native';
 import { Link } from '@react-navigation/native';
 import React,{ useState } from 'react';
+import axios from 'axios';
+
+const apiURL = 'http://snapi.epitech.eu:8000/';
+
+function testing(navigation) {
+    console.log('TRIGGERED')
+    axios({
+    method: 'post',
+    url: apiURL+'inscription',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify({
+      'email': 'kok@mail.com',
+      'password': 'password'
+    })
+  }).then((res)=>{
+    // ne s'exécute qu'en cas d'inscription réussite
+    console.log('INSCRIPTION - SUCCESS !')
+  }).catch((err)=>{
+    console.log('INSCRIPTION - FAILED')
+    navigation.navigate('User')
+    console.log(err.response.data,err.response.status,err.response.headers)
+    console.log(err.response.data.data.email)
+    let errData = err.response.data.data;
+    let errKeys = Object.keys(errData);
+    errKeys.forEach((v, i) => {
+      console.log(v, errData[v])
+    });
+    // console.log(JSON.parse(err.response.data))
+  });
+  }
+
+
 export function ScreenInscription (props) {
+    const [email, setEmail] = useState('');
     return (
         <View style={styles.container}>
             <Text style={styles.titre}>Inscription</Text>
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.email} 
-             placeholder="email@gmail.com" />
+             placeholder="Email"
+             onChangeText={newValue => {console.log(newValue);setEmail(newValue)}}/>
              <Text style={styles.label}>Password</Text>
             <TextInput style={styles.password} 
              placeholder="password" />
             <View style={styles.formButton}>
-            <Text>S'inscrire</Text>
+            <Button onPress={
+                function() {
+                    // testing(props.navigation)
+                    //
+                    }
+                } title="s'inscrire">content</Button>
+
             </View>
             <Text style={styles.loginText}>Vous avez déjà un compte?</Text>
             <Link to={{screen: "Connexion"}} style={styles.login}>Connexion</Link>

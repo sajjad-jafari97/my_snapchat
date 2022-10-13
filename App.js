@@ -8,7 +8,11 @@ import { ScreenConnexion } from './screens/Connexion.js';
 import { ScreenUser } from './screens/User.js';
 import { ScreenHome } from './screens/Home.js';
 
+import axios from 'axios';
+
+const apiURL = 'http://snapi.epitech.eu:8000/';
 const Stack = createStackNavigator(); // Stack contains Screen & Navigator properties
+
 
 export default function App() {
   return (
