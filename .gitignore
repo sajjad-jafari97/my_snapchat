@@ -1,4 +1,5 @@
 .gitignore
+startProject
 node_modules/
 .expo/
 dist/
