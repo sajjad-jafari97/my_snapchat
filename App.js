@@ -21,10 +21,11 @@ export default function App() {
 
       <Stack.Navigator initialRouteName='Home' >
 
-        <Stack.Screen name="Inscription" component={ScreenInscription} />
         <Stack.Screen name="Home" component={ScreenHome} />
+        <Stack.Screen name="Inscription" component={ScreenInscription} />
         <Stack.Screen name="Connexion" component={ScreenConnexion} />
-        <Stack.Screen name="User" component={ScreenUser} />
+        <Stack.Screen name="User" component={ScreenUser}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   );

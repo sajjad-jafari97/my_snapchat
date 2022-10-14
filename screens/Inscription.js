@@ -5,7 +5,8 @@ import axios from 'axios';
 
 const apiURL = 'http://snapi.epitech.eu:8000/';
 
-function testing(navigation) {
+function registerRequest(navigation, email, password) {
+    console.log(email);
     console.log('TRIGGERED')
     axios({
     method: 'post',
@@ -14,15 +15,16 @@ function testing(navigation) {
       'Content-Type': 'application/json'
     },
     data: JSON.stringify({
-      'email': 'kok@mail.com',
-      'password': 'password'
+      'email': email,
+      'password': password
     })
   }).then((res)=>{
+        navigation.navigate('Connexion')
+
     // ne s'exécute qu'en cas d'inscription réussite
     console.log('INSCRIPTION - SUCCESS !')
   }).catch((err)=>{
     console.log('INSCRIPTION - FAILED')
-    navigation.navigate('User')
     console.log(err.response.data,err.response.status,err.response.headers)
     console.log(err.response.data.data.email)
     let errData = err.response.data.data;
@@ -37,6 +39,7 @@ function testing(navigation) {
 
 export function ScreenInscription (props) {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={styles.container}>
             <Text style={styles.titre}>Inscription</Text>
@@ -46,11 +49,13 @@ export function ScreenInscription (props) {
              onChangeText={newValue => {console.log(newValue);setEmail(newValue)}}/>
              <Text style={styles.label}>Password</Text>
             <TextInput style={styles.password} 
-             placeholder="password" />
+             placeholder="password"
+             secureTextEntry={true}
+             onChangeText={newValue => {console.log(newValue);setPassword(newValue)}}/>
             <View style={styles.formButton}>
             <Button onPress={
                 function() {
-                    // testing(props.navigation)
+                    registerRequest(props.navigation, email, password);
                     //
                     }
                 } title="s'inscrire">content</Button>

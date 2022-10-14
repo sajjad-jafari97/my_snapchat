@@ -1,21 +1,70 @@
 import { StyleSheet,Text, View,TextInput, Button } from 'react-native';
 import { Link } from '@react-navigation/native';
+import React,{ useState } from 'react';
+import axios from 'axios';
+
+const apiURL = 'http://snapi.epitech.eu:8000/';
+
+function connectRequest(navigation, email, password) {
+    console.log(email);
+    console.log('TRIGGERED')
+    axios({
+    method: 'post',
+    url: apiURL+'connection',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: JSON.stringify({
+      'email': email,
+      'password': password
+    })
+  }).then((res)=>{
+    console.log(global.apiToken);
+    global.apiToken = res.data.data.token
+    navigation.navigate('User')
+
+    // ne s'exécute qu'en cas d'inscription réussite
+    console.log('INSCRIPTION - SUCCESS !')
+  }).catch((err)=>{
+    console.log('INSCRIPTION - FAILED')
+    console.log(err.response.data,err.response.status,err.response.headers)
+    console.log(err.response.data.data.email)
+    let errData = err.response.data.data;
+    let errKeys = Object.keys(errData);
+    errKeys.forEach((v, i) => {
+      console.log(v, errData[v])
+    });
+    // console.log(JSON.parse(err.response.data))
+  });
+  }
+
 
 export function ScreenConnexion (props) {
-    return(
-    <View style={styles.container}>
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    return (
+        <View style={styles.container}>
             <Text style={styles.titre}>Connexion</Text>
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.email} 
-             placeholder="email@gmail.com" />
+             placeholder="Email"
+             onChangeText={newValue => {console.log(newValue);setEmail(newValue)}}/>
              <Text style={styles.label}>Password</Text>
             <TextInput style={styles.password} 
-             placeholder="password" />
+             placeholder="password"
+             secureTextEntry={true}
+             onChangeText={newValue => {console.log(newValue);setPassword(newValue)}}/>
             <View style={styles.formButton}>
-            <Text>Se connecter</Text>
+            <Button onPress={
+                function() {
+                    connectRequest(props.navigation, email, password);
+                        
+                    }
+                } title="se connecter">content</Button>
+
             </View>
-            <Text style={styles.registerText}>Vous n'avez pas encore crée votre compte?</Text>
-            <Link to={{screen:"Inscription"}} style={styles.register}>S'inscrire</Link>
+            <Text style={styles.loginText}>Vous n'avez pas de compte ?</Text>
+            <Link to={{screen: "Inscription"}} style={styles.login}>Inscription</Link>
           
         </View>
     )
@@ -34,8 +83,9 @@ export function ScreenConnexion (props) {
             fontSize:40,
             color:"white",
             textAlign:"center",
+            marginTop:10,
         },
-        register:{
+        login:{
             fontSize:20,
             color:"white",
             textAlign:"center",
@@ -43,10 +93,9 @@ export function ScreenConnexion (props) {
             marginTop:10,
     
         },
-        registerText:{
-            fontSize:15,
+        loginText:{
+            fontSize:20,
             textAlign:"center",
-            marginTop:10,
     
         },
         email:{
