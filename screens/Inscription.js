@@ -1,13 +1,16 @@
 import { StyleSheet,Text, View,TextInput, Button } from 'react-native';
 import { Link } from '@react-navigation/native';
 import React,{ useState } from 'react';
+
 export function ScreenInscription (props) {
+
     return (
         <View style={styles.container}>
             <Text style={styles.titre}>Inscription</Text>
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.email} 
-             placeholder="email@gmail.com" />
+             placeholder="email@gmail.com" 
+             />
              <Text style={styles.label}>Password</Text>
             <TextInput style={styles.password} 
              placeholder="password" />
