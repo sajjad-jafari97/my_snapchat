@@ -7,6 +7,7 @@ import { ScreenInscription } from './screens/Inscription.js';
 import { ScreenConnexion } from './screens/Connexion.js';
 import { ScreenUser } from './screens/User.js';
 import { ScreenHome } from './screens/Home.js';
+import { ScreenCamera } from './screens/Camera.js';
 
 import axios from 'axios';
 
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name="Connexion" component={ScreenConnexion} />
         <Stack.Screen name="User" component={ScreenUser}
           />
+          <Stack.Screen name="Camera" component={ScreenCamera}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

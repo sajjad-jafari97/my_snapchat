@@ -1,7 +1,6 @@
 import { Button, StyleSheet,Text, View } from 'react-native';
 import { Link } from '@react-navigation/native';
   
-
 export function ScreenHome (props) {
     return (
         <View style={styles.container}>
@@ -18,7 +17,7 @@ const styles = StyleSheet.create ({
         justifyContent:"center",
         width:"100%",
         height:710,
-        backgroundColor:"#D4E206",
+        backgroundColor:"#51B800",
         fontSize: 60,
         
     },
