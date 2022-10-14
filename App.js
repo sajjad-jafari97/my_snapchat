@@ -8,7 +8,11 @@ import { ScreenConnexion } from './screens/Connexion.js';
 import { ScreenUser } from './screens/User.js';
 import { ScreenHome } from './screens/Home.js';
 
+import axios from 'axios';
+
+const apiURL = 'http://snapi.epitech.eu:8000/';
 const Stack = createStackNavigator(); // Stack contains Screen & Navigator properties
+
 
 export default function App() {
   return (
@@ -17,10 +21,11 @@ export default function App() {
 
       <Stack.Navigator initialRouteName='Home' >
 
-        <Stack.Screen name="Inscription" component={ScreenInscription} />
         <Stack.Screen name="Home" component={ScreenHome} />
+        <Stack.Screen name="Inscription" component={ScreenInscription} />
         <Stack.Screen name="Connexion" component={ScreenConnexion} />
-        <Stack.Screen name="User" component={ScreenUser} />
+        <Stack.Screen name="User" component={ScreenUser}
+          />
       </Stack.Navigator>
     </NavigationContainer>
   );
