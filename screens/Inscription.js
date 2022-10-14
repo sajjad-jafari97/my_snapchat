@@ -2,39 +2,41 @@ import { StyleSheet,Text, View,TextInput, Button } from 'react-native';
 import { Link } from '@react-navigation/native';
 import React,{ useState } from 'react';
 import axios from 'axios';
+import apiConnect from '../functions/api';
 
 const apiURL = 'http://snapi.epitech.eu:8000/';
 
-function registerRequest(navigation, email, password) {
-    console.log(email);
-    console.log('TRIGGERED')
-    axios({
-    method: 'post',
-    url: apiURL+'inscription',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify({
-      'email': email,
-      'password': password
-    })
-  }).then((res)=>{
-        navigation.navigate('Connexion')
 
-    // ne s'exécute qu'en cas d'inscription réussite
-    console.log('INSCRIPTION - SUCCESS !')
-  }).catch((err)=>{
-    console.log('INSCRIPTION - FAILED')
-    console.log(err.response.data,err.response.status,err.response.headers)
-    console.log(err.response.data.data.email)
-    let errData = err.response.data.data;
-    let errKeys = Object.keys(errData);
-    errKeys.forEach((v, i) => {
-      console.log(v, errData[v])
-    });
-    // console.log(JSON.parse(err.response.data))
-  });
-  }
+// function registerRequest(navigation, email, password) {
+//     console.log(email);
+//     console.log('TRIGGERED')
+//     axios({
+//     method: 'post',
+//     url: apiURL+'inscription',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     data: JSON.stringify({
+//       'email': email,
+//       'password': password
+//     })
+//   }).then((res)=>{
+//         navigation.navigate('Connexion')
+
+//     // ne s'exécute qu'en cas d'inscription réussite
+//     console.log('INSCRIPTION - SUCCESS !')
+//   }).catch((err)=>{
+//     console.log('INSCRIPTION - FAILED')
+//     console.log(err.response.data,err.response.status,err.response.headers)
+//     console.log(err.response.data.data.email)
+//     let errData = err.response.data.data;
+//     let errKeys = Object.keys(errData);
+//     errKeys.forEach((v, i) => {
+//       console.log(v, errData[v])
+//     });
+//     // console.log(JSON.parse(err.response.data))
+//   });
+//   }
 
 
 export function ScreenInscription (props) {
@@ -55,8 +57,24 @@ export function ScreenInscription (props) {
             <View style={styles.formButton}>
             <Button onPress={
                 function() {
-                    registerRequest(props.navigation, email, password);
+                    //registerRequest(props.navigation, email, password);
                     //
+                    apiConnect('/inscription',
+                        {'Content-Type':'application/json'},
+                        'post',
+                        {
+                            'email': email,
+                            'password': password
+                        },
+                        (res) => {
+                            console.log('INSCRIPTION - SUCCESS');
+                            props.navigation.navigate('Connexion')
+                        }, 
+                        (err) => {
+                            console.log('INSCRIPTION - FAILED');
+                            console.log(err.response.data);
+                        }
+                        );
                     }
                 } title="s'inscrire">content</Button>
 
